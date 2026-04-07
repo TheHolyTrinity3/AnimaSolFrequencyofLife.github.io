@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Exploring the intersection of light, shadow, and human resonance. A mathematical journey by Mark Azzopardi.">
     <title>Mark J Azzopardi | Resonance & Duality</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             background-color: #050505;
@@ -110,6 +111,15 @@
             font-weight: bold;
         }
 
+        /* Simulation Styling */
+        .sim-box {
+            background: #0b0f1a;
+            padding: 40px 20px;
+            border-radius: 8px;
+            margin-top: 50px;
+            border: 1px solid #00d4ff;
+        }
+
         footer {
             text-align: center;
             padding: 50px;
@@ -166,11 +176,67 @@
             <p>Everything in the universe is a byproduct of vibration. To create light is to define the boundaries of the dark. My work explores how these mathematical constants shape our perception of reality.</p>
         </section>
 
+        <section id="simulation">
+            <div class="sim-box">
+                <h2 style="color: #00d4ff; text-align: center;">Human Bio-Rhythm Simulation</h2>
+                <p style="text-align: center;">Heart • Breath • Brain • Combined System</p>
+                <canvas id="chart"></canvas>
+            </div>
+        </section>
+
     </div>
 
     <footer>
         &copy; 2026 Mark J Azzopardi. All rights reserved.
     </footer>
 
+    <script>
+    const t = [];
+    const heart = [];
+    const breath = [];
+    const brain = [];
+    const combined = [];
+
+    const heartFreq = 1.2;
+    const breathFreq = 0.25;
+    const brainFreq = 10;
+
+    for (let i = 0; i < 1000; i++) {
+      let time = i * 0.06;
+      t.push(time);
+
+      let breathSignal = 0.5 * Math.sin(2 * Math.PI * breathFreq * time);
+      let heartSignal = Math.sin(2 * Math.PI * heartFreq * time + 0.5 * breathSignal);
+      let brainSignal = 0.3 * Math.sin(2 * Math.PI * brainFreq * time);
+
+      heart.push(heartSignal);
+      breath.push(breathSignal);
+      brain.push(brainSignal);
+      combined.push(heartSignal + breathSignal + brainSignal);
+    }
+
+    new Chart(document.getElementById('chart'), {
+      type: 'line',
+      data: {
+        labels: t,
+        datasets: [
+          { label: 'Heart', data: heart, borderColor: '#ff4b2b', borderWidth: 1, pointRadius: 0 },
+          { label: 'Breath', data: breath, borderColor: '#00d4ff', borderWidth: 1, pointRadius: 0 },
+          { label: 'Brain', data: brain, borderColor: '#f9d423', borderWidth: 1, pointRadius: 0 },
+          { label: 'Combined', data: combined, borderColor: '#ffffff', borderWidth: 2, pointRadius: 0 }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { display: false },
+          y: { display: true, grid: { color: '#333' } }
+        },
+        plugins: {
+          legend: { labels: { color: 'white' } }
+        }
+      }
+    });
+    </script>
 </body>
 </html>
